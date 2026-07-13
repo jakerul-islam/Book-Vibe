@@ -1,12 +1,13 @@
 import React from 'react';
 import { FaRegStar } from "react-icons/fa";
+import { Link } from 'react-router';
 
 const BooksCard = ({ book }) => {
-    const { bookName, author, image, rating, category, tags } = book;
+    const { bookName, author, image, rating, category, tags,bookId } = book;
 
     return (
-        <div className="card bg-base-100 w-full max-w-sm border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-            {/* ১. ইমেজ সেকশন (ধূসর ব্যাকগ্রাউন্ড বক্সের ভেতরে) */}
+        <Link to={`/books-details/${bookId}`} className="card bg-base-100 w-full max-w-sm border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
+          
             <figure className="bg-gray-100 rounded-2xl p-8 flex justify-center items-center h-[230px]">
                 <img
                     src={image}
@@ -15,9 +16,9 @@ const BooksCard = ({ book }) => {
                 />
             </figure>
 
-            {/* ২. কার্ড বডি বা টেক্সট সেকশন */}
+          
             <div className="mt-6 flex flex-col flex-grow">
-                {/* ট্যাগসমূহ */}
+         
                 <div className="flex flex-wrap gap-2 mb-3">
                     {tags.map((tag, index) => (
                         <span 
@@ -29,20 +30,20 @@ const BooksCard = ({ book }) => {
                     ))}
                 </div>
 
-                {/* বইয়ের নাম বা টাইটেল */}
+               
                 <h2 className="text-xl font-bold text-white line-clamp-1 mb-2">
                     {bookName}
                 </h2>
 
-                {/* লেখকের নাম */}
+  
                 <p className="text-white font-medium text-sm mb-4">
                     By : {author}
                 </p>
 
-                {/* ডটেড বর্ডার / ডিভাইডার */}
+        
                 <div className="border-t border-dashed border-white my-2"></div>
 
-                {/* ৩. ফুটারে ক্যাটাগরি এবং রেটিং */}
+           
                 <div className="flex justify-between items-center text-white font-medium text-sm pt-2">
                     <span>{category}</span>
                     <div className="flex items-center gap-1.5">
@@ -52,7 +53,7 @@ const BooksCard = ({ book }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
