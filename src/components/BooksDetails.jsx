@@ -1,20 +1,24 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
+import { BookContext } from '../contextApi/ContextProvider';
 
 const BooksDetails = () => {
     const { bookId } = useParams();
     const books = useLoaderData();
 
-    // কাঙ্খিত বইটি খুঁজে বের করা
     const expectedBook = books.find(book => book.bookId == bookId);
 
-    // যদি কোনো কারণে বই খুঁজে না পাওয়া যায় তার জন্য সেফটি গার্ড
+
     if (!expectedBook) {
         return <div className="text-center mt-20 text-red-500 font-bold text-xl">Book not found!</div>;
     }
 
-    const { bookName, author, image, review, totalPages, rating, category, tags, publisher, yearOfPublishing } = expectedBook;
+    const {handleMarkAsRead,handleWishBooks}=useContext(BookContext)
+  
 
+    const { bookName, author, image, review, totalPages, rating, category, tags, publisher, yearOfPublishing } = expectedBook;
+  
+  
     return (
         <div className="container mx-auto my-10 px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center bg-gray-900 rounded-2xl p-6 lg:p-10 shadow-2xl">
@@ -83,10 +87,10 @@ const BooksDetails = () => {
 
                     {/* ৩. বাটন সেকশন */}
                     <div className="flex gap-4 mt-4">
-                        <button className="btn btn-outline border-white text-white hover:bg-white hover:text-gray-900 px-8 rounded-xl font-bold">
-                            Read
+                        <button onClick={()=>handleMarkAsRead(expectedBook)} className="btn btn-outline border-white text-white hover:bg-white hover:text-gray-900 px-8 rounded-xl font-bold">
+                           Mark as read
                         </button>
-                        <button className="btn bg-[#50B1C9] hover:bg-[#409eb5] text-white px-8 rounded-xl font-bold border-none">
+                        <button onClick={()=>handleWishBooks(expectedBook)} className="btn bg-[#50B1C9] hover:bg-[#409eb5] text-white px-8 rounded-xl font-bold border-none">
                             Wishlist
                         </button>
                     </div>
